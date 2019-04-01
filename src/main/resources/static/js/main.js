@@ -23,14 +23,13 @@ function reDrawPyramid(height){
     console.log("Re draw pyramid")
     clearPyramid();
     drawPyramid(height);
-    document.getElementById('pyramidHeighLabel').innerHTML = height;
 }
 
 function updateBackEnd() {
     let height = document.getElementById('pyramidHeigh').value;
     let symbol = document.getElementById('brickSymbol').value;
 
-    return fetch('http://localhost:8080/update', {
+    return fetch('/update', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ pyramidHeigh: height, pyramidSymbol: symbol })
@@ -41,11 +40,13 @@ function updateBackEnd() {
 
 
 function getDataFromBackEnd ()  {
-       fetch('http://localhost:8080/get')
+       fetch('/get')
             .then(result => result.json())
             .then(res => {
 
             document.getElementById('pyramidHeighLabel').innerHTML = res.pyramidHeigh;
+            document.getElementById('pyramidHeigh').value = res.pyramidHeigh;
+
             reDrawPyramid(res.pyramidHeigh);
             })
 }
