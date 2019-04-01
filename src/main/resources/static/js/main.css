@@ -1,0 +1,19 @@
+#header {
+
+    background-color: darkgrey;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 120%;
+
+    margin: auto;
+    width: 80%;
+    padding: 10px;
+}
+
+#pyramid-building {
+
+    margin: auto;
+    text-align: center;
+    font-size: 200%;
+    width: 80%;
+    padding: 10px;
+}
