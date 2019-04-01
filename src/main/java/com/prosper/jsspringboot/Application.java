@@ -12,6 +12,7 @@ import reactor.core.publisher.Flux;
 
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.function.Function;
 
 /**
  * Created by Igor  29/03/2019
@@ -26,14 +27,12 @@ public class Application {
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public void updateData(@RequestBody AppData updatedAppData) {
-//        if(appData.getPyramidSymbol() == updatedAppData.getPyramidSymbol() && appData.getPyramidHeigh() == updatedAppData.getPyramidHeigh()) {
-//            trigger = false;
-//        }
-//        else {
-//            trigger = true;
-//        }
+        if(appData.getPyramidSymbol() != updatedAppData.getPyramidSymbol() || appData.getPyramidHeigh() != updatedAppData.getPyramidHeigh()) {
+            trigger = trigger ? false : true;
+        }
 
-        trigger = trigger ? false: true;
+
+        System.out.println("Trigger : " + trigger);
         appData.setPyramidHeigh(updatedAppData.getPyramidHeigh());
         appData.setPyramidSymbol(updatedAppData.getPyramidSymbol());
         System.out.println("UPDATED with " + updatedAppData.getPyramidHeigh() + updatedAppData.getPyramidSymbol());
@@ -46,11 +45,15 @@ public class Application {
         return appData;
     }
 
-//    @RequestMapping(value = "/events/subscribe")
     @GetMapping(path = "/events/subscribe", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<String> streamFlux() {
         return Flux.interval(Duration.ofSeconds(1))
-                .map(sequence -> "Flux - " + LocalTime.now().toString() + " : " + new Boolean(trigger));
+                .map(new Function<Long, String>() {
+                    @Override
+                    public String apply(Long sequence) {
+                        return "Flux - " + LocalTime.now().toString() + " : " + trigger;
+                    }
+                });
     }
 
 }

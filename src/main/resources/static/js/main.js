@@ -64,10 +64,22 @@ document.getElementById('brickSymbol').addEventListener('change', function test(
 })
 
 var eventSource = new EventSource("/events/subscribe");
+var prevState = false;
 eventSource.onmessage = function(e) {
-   if(e.data.includes('true')) {
-     console.log("Пришло сообщение: " + e.data);
-   }
+
+    let curState;
+
+    if(e.data.includes('true')) {
+        curState = true;
+    }
+    else {
+        curState = false;
+    }
+    if(curState != prevState) {
+         console.log("Пришло сообщение: " + e.data);
+         getDataFromBackEnd();
+         prevState = curState;
+    }
 };
 
 getDataFromBackEnd();
