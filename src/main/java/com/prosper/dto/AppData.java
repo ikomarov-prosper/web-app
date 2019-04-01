@@ -16,6 +16,7 @@ public class AppData {
     @JsonProperty("pyramidSymbol")
     private String  pyramidSymbol = "$";
 
+
     public Integer getPyramidHeigh() {
         return pyramidHeigh;
     }

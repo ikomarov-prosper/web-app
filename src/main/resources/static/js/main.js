@@ -63,6 +63,13 @@ document.getElementById('brickSymbol').addEventListener('change', function test(
 
 })
 
+var eventSource = new EventSource("/events/subscribe");
+eventSource.onmessage = function(e) {
+   if(e.data.includes('true')) {
+     console.log("Пришло сообщение: " + e.data);
+   }
+};
+
 getDataFromBackEnd();
 
 
