@@ -11,10 +11,10 @@ public class AppData {
 
 
     @JsonProperty("pyramidHeigh")
-    private Integer pyramidHeigh;
+    private Integer pyramidHeigh = 5;
 
     @JsonProperty("pyramidSymbol")
-    private String  pyramidSymbol;
+    private String  pyramidSymbol = "$";
 
     public Integer getPyramidHeigh() {
         return pyramidHeigh;

@@ -2,6 +2,9 @@ package com.prosper.jsspringboot;
 
 import com.prosper.dto.AppData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,8 +28,8 @@ public class Application {
     }
 
     @RequestMapping(value = "/get")
-    @ResponseBody
     public AppData getData() {
+        System.out.println("GET method : " + appData.getPyramidHeigh() + appData.getPyramidSymbol());
         return appData;
     }
 
