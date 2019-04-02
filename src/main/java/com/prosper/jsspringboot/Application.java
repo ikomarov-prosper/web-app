@@ -1,6 +1,7 @@
 package com.prosper.jsspringboot;
 
 import com.prosper.dto.AppData;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import java.util.function.Function;
  * Created by Igor  29/03/2019
  */
 @RestController
+@Log4j2
 public class Application {
 
     @Autowired
@@ -31,17 +33,16 @@ public class Application {
             trigger = trigger ? false : true;
         }
 
-
-        System.out.println("Trigger : " + trigger);
+        log.info("Trigger : {}" + trigger);
         appData.setPyramidHeigh(updatedAppData.getPyramidHeigh());
         appData.setPyramidSymbol(updatedAppData.getPyramidSymbol());
-        System.out.println("UPDATED with " + updatedAppData.getPyramidHeigh() + updatedAppData.getPyramidSymbol());
+        log.info("updateData : {}, {}", updatedAppData.getPyramidHeigh(), updatedAppData.getPyramidSymbol());
 
     }
 
     @RequestMapping(value = "/get")
     public AppData getData() {
-        System.out.println("GET method : " + appData.getPyramidHeigh() + appData.getPyramidSymbol());
+        log.info("getData : {}, {}", appData.getPyramidHeigh(), appData.getPyramidSymbol());
         return appData;
     }
 
