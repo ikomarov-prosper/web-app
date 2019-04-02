@@ -16,4 +16,7 @@ public class AppData {
 
     @JsonProperty("pyramidSymbol")
     private String  pyramidSymbol = "$";
+
+    @JsonProperty("trigger")
+    private Boolean trigger = false;
 }

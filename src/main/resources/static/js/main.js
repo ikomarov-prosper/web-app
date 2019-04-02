@@ -64,19 +64,17 @@ document.getElementById('brickSymbol').addEventListener('change', function test(
 })
 
 var eventSource = new EventSource("/events/subscribe");
-var prevState = false;
+var prevState = undefined;
 eventSource.onmessage = function(e) {
-
+    //console.log("New message : " + e.data);
     let curState;
+    let data = JSON.parse(e.data);
+    if(prevState == undefined) {
+        prevState  = data.trigger;
+    }
 
-    if(e.data.includes('true')) {
-        curState = true;
-    }
-    else {
-        curState = false;
-    }
-    if(curState != prevState) {
-         console.log("Пришло сообщение: " + e.data);
+    if(data.trigger != prevState) {
+         console.log("Data has been changed : " + e.data);
          getDataFromBackEnd();
          prevState = curState;
     }
