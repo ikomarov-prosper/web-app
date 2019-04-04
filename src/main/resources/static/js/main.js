@@ -5,7 +5,7 @@ function createTable(colSize, rowSize) {
         for (let j = 0; j < colSize; j++) {
             let td = document.createElement('td');
             let image = document.createElement('image');
-            image.setAttribute('src', './images/question.jpeg');
+            image.setAttribute('src', '/images/QuestionsPicture.jpg');
 
             td.appendChild(image);
             tr.appendChild(td);
@@ -79,6 +79,7 @@ document.getElementById('brickSymbol').addEventListener('change', function test(
 
 // getDataFromBackEnd();
 createTable(3,3);
+
 
 
 

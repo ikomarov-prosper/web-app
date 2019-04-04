@@ -19,10 +19,9 @@ public class Application {
     @Autowired
     private AppData appData;
 
-    @GetMapping({"/", "/hello"})
-    public String hello(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name) {
-        model.addAttribute("name", name);
-        return "hello";
+    @GetMapping({"/", "/main"})
+    public String hello(Model model) {
+        return "main";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)

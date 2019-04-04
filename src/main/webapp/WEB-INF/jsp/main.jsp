@@ -1,4 +1,4 @@
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Pyramid</title>
@@ -23,7 +23,7 @@
     <table id="table"></table>
 </div>
 
-
+<div id='imageTest'></div>
 <script src="js/main.js"></script>
 </body>
 </html>
