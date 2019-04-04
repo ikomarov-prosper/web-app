@@ -8,12 +8,13 @@
     width: 80%;
     padding: 10px;
 }
+table {
+    border-collapse: collapse;
+}
 
-#pyramid-building {
 
-    margin: auto;
-    text-align: center;
-    font-size: 200%;
-    width: 80%;
-    padding: 10px;
+#table td {
+    height: 100px;
+    width: 100px;
+    border: 1px solid black;
 }

@@ -1,4 +1,19 @@
 
+function createTable(colSize, rowSize) {
+    for (let i = 0; i < rowSize; i++) {
+        let tr = document.createElement('tr')
+        for (let j = 0; j < colSize; j++) {
+            let td = document.createElement('td');
+            let image = document.createElement('image');
+            image.setAttribute('src', './images/question.jpeg');
+
+            td.appendChild(image);
+            tr.appendChild(td);
+        }
+        document.getElementById('table').appendChild(tr);
+    }
+}
+
 function drawPyramid(height) {
     console.log("Height : " + height)
 
@@ -62,8 +77,8 @@ document.getElementById('brickSymbol').addEventListener('change', function test(
 
 })
 
-getDataFromBackEnd();
-
+// getDataFromBackEnd();
+createTable(3,3);
 
 
 

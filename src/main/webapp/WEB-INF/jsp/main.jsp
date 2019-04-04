@@ -1,8 +1,8 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Pyramid</title>
+    <link rel="stylesheet" type="text/css" href="js/main.css">
 </head>
 <body>
 <div id="header">
@@ -19,8 +19,11 @@
     <span id="pyramidHeighLabel"></span>
 </div>
 
-<div id="pyramid-building"/>
+<div>
+    <table id="table"></table>
+</div>
 
-<script src="./js/main.js"></script>
+
+<script src="js/main.js"></script>
 </body>
 </html>
