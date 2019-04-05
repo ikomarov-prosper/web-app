@@ -1,5 +1,6 @@
 
 function createTable(colSize, rowSize) {
+    let table = document.createElement('table');
     for (let i = 0; i < rowSize; i++) {
         let tr = document.createElement('tr')
         for (let j = 0; j < colSize; j++) {
@@ -9,13 +10,47 @@ function createTable(colSize, rowSize) {
             td.appendChild(image);
             tr.appendChild(td);
         }
-        document.getElementById('table').appendChild(tr);
+        table.appendChild(tr);
+    }
+    document.getElementById('table-container').appendChild(table);
+}
+
+function removeTable() {
+    let tableRoot = document.getElementById('table-container');
+    while(tableRoot.firstChild) {
+        tableRoot.firstChild.remove();
     }
 }
 
+function updateBackEnd() {
+    let size = document.getElementById('tableSize').value;
 
-createTable(3,3);
+    return fetch('/update', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tableSize: size})
+    })
+        .then(result => result)
+        .then(res => {getDataFromBackEnd()})
+}
 
+
+function getDataFromBackEnd ()  {
+    fetch('/get')
+        .then(result => result.json())
+        .then(res => {
+            removeTable();
+            createTable(res.tableSize, res.tableSize);
+        })
+}
+
+document.getElementById('tableSize').addEventListener('change', function changeTableSize(){
+    console.log("changeSize")
+    updateBackEnd();
+
+})
+
+getDataFromBackEnd();
 
 
 
