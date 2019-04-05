@@ -13,4 +13,7 @@ public class AppData {
 
     @JsonProperty("tableSize")
     private Integer tableSize = 1;
+
+    @JsonProperty("answer")
+    private String answer;
 }

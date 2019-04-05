@@ -21,38 +21,38 @@ function removeTable() {
         tableRoot.firstChild.remove();
     }
 }
+//
+//function updateBackEnd() {
+//    let size = document.getElementById('tableSize').value;
+//
+//    return fetch('/update', {
+//        method: 'PUT',
+//        headers: { 'Content-Type': 'application/json' },
+//        body: JSON.stringify({ tableSize: size})
+//    })
+//        .then(result => result)
+//        .then(res => {getDataFromBackEnd()})
+//}
+//
+//
+//function getDataFromBackEnd ()  {
+//    fetch('/get')
+//        .then(result => result.json())
+//        .then(res => {
+//            removeTable();
+//            createTable(res.tableSize, res.tableSize);
+//        })
+//}
 
-function updateBackEnd() {
-    let size = document.getElementById('tableSize').value;
+//document.getElementById('tableSize').addEventListener('change', function changeTableSize(){
+//    console.log("changeSize")
+//    updateBackEnd();
+//
+//})
 
-    return fetch('/update', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tableSize: size})
-    })
-        .then(result => result)
-        .then(res => {getDataFromBackEnd()})
-}
+//getDataFromBackEnd();
 
-
-function getDataFromBackEnd ()  {
-    fetch('/get')
-        .then(result => result.json())
-        .then(res => {
-            removeTable();
-            createTable(res.tableSize, res.tableSize);
-        })
-}
-
-document.getElementById('tableSize').addEventListener('change', function changeTableSize(){
-    console.log("changeSize")
-    updateBackEnd();
-
-})
-
-getDataFromBackEnd();
-
-
+createTable(document.getElementById('answerID').textContent, document.getElementById('answerID').textContent);
 
 
 
