@@ -52,7 +52,8 @@ function removeTable() {
 
 //getDataFromBackEnd();
 
-createTable(document.getElementById('answerID').textContent, document.getElementById('answerID').textContent);
+// createTable(document.getElementById('answerID').textContent, document.getElementById('answerID').textContent);
+createTable(2, 2);
 
 
 

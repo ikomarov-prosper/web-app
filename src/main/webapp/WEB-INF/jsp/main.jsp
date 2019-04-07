@@ -23,7 +23,11 @@
 <div>
     <div id="table-container"> </div>
 </div>
-<div id='answerID'>${answer}</div>
+
+<script>
+    var model={};
+    model.answer="${appData.answer}";
+</script>
 <script src="js/main.js"></script>
 </body>
 </html>
