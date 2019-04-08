@@ -53,6 +53,24 @@ function removeTable() {
 //getDataFromBackEnd();
 
 // createTable(document.getElementById('answerID').textContent, document.getElementById('answerID').textContent);
+
+var eventSource = new EventSource("/start");
+var prevState = undefined;
+eventSource.onmessage = function(e) {
+    //console.log("New message : " + e.data);
+    let curState;
+    let data = JSON.parse(e.data);
+    if(prevState == undefined) {
+        prevState  = data.trigger;
+    }
+
+    if(data.trigger != prevState) {
+        console.log("Data has been changed : " + e.data);
+        getDataFromBackEnd();
+        prevState = curState;
+    }
+};
+
 createTable(model.columns, model.rows);
 
 
