@@ -6,7 +6,7 @@ function createTable(colSize, rowSize) {
         for (let j = 0; j < colSize; j++) {
             let td = document.createElement('td');
             let image  = new Image();
-            image.src = '/images/QuestionsPicture.jpg';
+            //image.src = '/images/QuestionsPicture.jpg';
             td.appendChild(image);
             tr.appendChild(td);
         }
@@ -53,7 +53,7 @@ function removeTable() {
 //getDataFromBackEnd();
 
 // createTable(document.getElementById('answerID').textContent, document.getElementById('answerID').textContent);
-createTable(2, 2);
+createTable(model.columns, model.rows);
 
 
 

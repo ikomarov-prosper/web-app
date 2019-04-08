@@ -16,7 +16,7 @@
     <span>How size?</span>
     <input type="range" id="tableSize" value="5" min="1" max="10" step="1"></input>
 </div>
-<form:form action="/update" modelAttribute="appData" method="POST">
+<form:form action="/update" modelAttribute="user" method="POST">
    <form:input type="text" path="answer"></form:input>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
  </form:form>
@@ -26,7 +26,10 @@
 
 <script>
     var model={};
-    model.answer="${appData.answer}";
+    model.answer="${user.answer}";
+    model.userList = "${application.getUserList()}"
+    model.columns = "${application.getColumns()}"
+    model.rows = "${application.getRows()}"
 </script>
 <script src="js/main.js"></script>
 </body>

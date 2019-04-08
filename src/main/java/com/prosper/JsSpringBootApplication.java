@@ -1,4 +1,4 @@
-package com.prosper.jsspringboot;
+package com.prosper;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("com.prosper.*")
+@ComponentScan("com.*")
 public class JsSpringBootApplication extends SpringBootServletInitializer {
 
 	@Override

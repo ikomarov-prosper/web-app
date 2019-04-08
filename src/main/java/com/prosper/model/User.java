@@ -1,4 +1,4 @@
-package com.prosper.dto;
+package com.prosper.model;
 
 import lombok.Data;
 import org.springframework.context.annotation.Scope;
@@ -14,4 +14,13 @@ import org.springframework.stereotype.Component;
 @Scope(value = "session",proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class User {
     private String name;
+    private String answer;
+
+    public User() {
+    }
+
+    public User(User user) {
+        name = user.getName();
+        answer = user.getAnswer();
+    }
 }
