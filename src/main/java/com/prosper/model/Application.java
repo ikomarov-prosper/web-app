@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import javax.ejb.Stateful;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +18,8 @@ import java.util.List;
 @Data
 public class Application {
 
-    private int rows = 3;
-    private int columns = 3;
-    private  int [][] cells = new int[rows][columns];
+    @Autowired
+    private Table table;
 
     public List<User> getUserList() {
         List<User> users = new ArrayList<>();

@@ -28,8 +28,8 @@
     var model={};
     model.answer="${User.answer}";
     model.userList = "${Application.getUserList()}"
-    model.columns = "${Application.getColumns()}"
-    model.rows = "${Application.getRows()}"
+    model.columns = "${Application.getTable().getColumns()}"
+    model.rows = "${Application.getTable().getRows()}"
 </script>
 <script src="js/main.js"></script>
 </body>

@@ -4,8 +4,6 @@ import com.prosper.model.Application;
 import com.prosper.model.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -16,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @Log4j2
@@ -41,6 +37,20 @@ public class MainController {
     @GetMapping(value = "/get")
     public String getData(Model model) {
         log.info("List of users : {}", application.getUserList());
+        return "main";
+    }
+
+    //for testing only
+    @GetMapping(value = "/getNextCell")
+    public String getNextRandomCell() {
+        log.info("Next random cell : {}", application.getTable().getNextRandomCell());
+        return "main";
+    }
+
+    @GetMapping(value = "/start")
+    public String getCell() {
+        log.info("Next random cell : {}", application.getTable().getNextRandomCell());
+
         return "main";
     }
 
