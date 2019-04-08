@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 
-<form:form action="/login" modelAttribute="user" method="POST">
+<form:form action="/login" modelAttribute="User" method="POST">
 <form:label path="name">Name</form:label>
     <form:input path="name" />
     <input type="submit" value="Submit" />

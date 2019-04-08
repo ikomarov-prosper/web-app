@@ -26,7 +26,7 @@ public class Application {
     public List<User> getUserList() {
         List<User> users = new ArrayList<>();
         for (HttpSession session : HttpSessionConfig.getSessions().values()) {
-            users.add((User) session.getAttribute("user"));
+            users.add((User) session.getAttribute(User.class.getSimpleName()));
         }
         return users;
     }

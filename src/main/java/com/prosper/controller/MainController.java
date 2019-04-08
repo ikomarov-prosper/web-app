@@ -30,25 +30,25 @@ public class MainController {
 
     @GetMapping(value = {"/"})
     public String main(ModelMap model) {
-        model.addAttribute("user", user);
-        model.addAttribute("application", application);
+        model.addAttribute(User.class.getSimpleName(), user);
+        model.addAttribute(Application.class.getSimpleName(), application);
         return "login";
     }
 
 
     @GetMapping(value = "/get")
     public String getData(Model model) {
-        model.addAttribute("application", application);
-        model.addAttribute("user", user);
+        model.addAttribute(Application.class.getSimpleName(), application);
+        model.addAttribute(User.class.getSimpleName(), user);
         log.info("List of users : {}", application.getUserList());
         return "main";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String answerSubmit(@ModelAttribute("user") User user, Model model, HttpSession session) {
+    public String answerSubmit(@ModelAttribute("User") User user, Model model, HttpSession session) {
         this.user.setAnswer(user.getAnswer());
-        model.addAttribute("application", application);
-        session.setAttribute("user", new User(this.user));
+        model.addAttribute(Application.class.getSimpleName(), application);
+        session.setAttribute(User.class.getSimpleName(), new User(this.user));
         log.info("answerSubmit : {}", user.getAnswer());
         return "main";
     }

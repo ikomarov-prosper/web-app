@@ -28,10 +28,9 @@ public class LoginController {
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
     public String login(@ModelAttribute("user") User user, ModelMap model, HttpSession session) {
         this.user.setName(user.getName());
-        model.addAttribute("user", this.user);
-//        model.addAttribute("appData", appData);
-        session.setAttribute("user", new User(this.user));
-        model.addAttribute("application", application);
+        model.addAttribute(User.class.getSimpleName(), this.user);
+        model.addAttribute(Application.class.getSimpleName(), application);
+        session.setAttribute(User.class.getSimpleName(), new User(this.user));
         return "main";
     }
 }
