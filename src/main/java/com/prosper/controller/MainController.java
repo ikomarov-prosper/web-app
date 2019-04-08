@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @Controller
 @Log4j2
+@ControllerAdvice
 public class MainController {
 
     @Autowired
@@ -28,18 +30,16 @@ public class MainController {
     @Autowired
     private User user;
 
+
+
     @GetMapping(value = {"/"})
     public String main(ModelMap model) {
-        model.addAttribute(User.class.getSimpleName(), user);
-        model.addAttribute(Application.class.getSimpleName(), application);
         return "login";
     }
 
 
     @GetMapping(value = "/get")
     public String getData(Model model) {
-        model.addAttribute(Application.class.getSimpleName(), application);
-        model.addAttribute(User.class.getSimpleName(), user);
         log.info("List of users : {}", application.getUserList());
         return "main";
     }
@@ -47,7 +47,6 @@ public class MainController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String answerSubmit(@ModelAttribute("User") User user, Model model, HttpSession session) {
         this.user.setAnswer(user.getAnswer());
-        model.addAttribute(Application.class.getSimpleName(), application);
         session.setAttribute(User.class.getSimpleName(), new User(this.user));
         log.info("answerSubmit : {}", user.getAnswer());
         return "main";
