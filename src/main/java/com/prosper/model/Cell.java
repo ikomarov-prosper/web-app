@@ -12,7 +12,7 @@ public class Cell {
 
     private int col;
     private int row;
-    private CellStatus status = CellStatus.NOT_STARTED;
+    private CellStatus status;
     private String question;
     private String answer;
 
@@ -26,9 +26,10 @@ public class Cell {
         NOT_STARTED;
     }
 
-    public Cell(int row, int col) {
+    public Cell(int row, int col, CellStatus status) {
         this.row = row;
         this.col = col;
+        this.status = status;
     }
 
     public  String getAnswer() {

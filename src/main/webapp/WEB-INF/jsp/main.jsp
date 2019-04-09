@@ -10,12 +10,7 @@
     <link rel="stylesheet" type="text/css" href="js/main.css">
 </head>
 <body>
-<div id="header">
 
-
-    <span>How size?</span>
-    <input type="range" id="tableSize" value="5" min="1" max="10" step="1"></input>
-</div>
 <form:form action="/update" modelAttribute="User" method="POST">
    <form:input type="text" path="answer"></form:input>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>

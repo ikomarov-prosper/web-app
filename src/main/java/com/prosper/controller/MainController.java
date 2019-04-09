@@ -28,13 +28,10 @@ public class MainController {
     @Autowired
     private User user;
 
-
-
     @GetMapping(value = {"/"})
     public String main(ModelMap model) {
         return "login";
     }
-
 
     @GetMapping(value = "/get")
     public String getData(Model model) {
@@ -42,40 +39,68 @@ public class MainController {
         return "main";
     }
 
+    @GetMapping(value = "/restart")
+    public String restart() {
+        log.info("Restarting game....");
+        application.getTable().update();
+        return "main";
+    }
 
     @GetMapping(value = "/getNextCell")
     public String getNextRandomCell() {
 
-        Cell activeCell = application.getTable().getNextRandomCell();
-        log.info("Next random cell : {}", activeCell);
+        Boolean flag = null;
+        do {
+            Cell activeCell = application.getTable().getNextRandomCell();
+            log.info("Next random cell : {}", activeCell);
 
-        Thread thread = new Thread(){
-            public void run(){
-
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                for(User user: application.getUserList()) {
-                    if(null == user.getAnswer()) {
-                        activeCell.setStatus(CellStatus.FAILED);
-                        return;
-                    }
-                    if (!user.getAnswer().equalsIgnoreCase(activeCell.getAnswer())) {
-                        activeCell.setStatus(CellStatus.FAILED);
-                        return;
-                    }
-                }
-                activeCell.setStatus(CellStatus.RESOLVED);
-
-                for(User user: application.getUserList()) {
-                    user.setAnswer(null);
-                }
+            if(activeCell!=null) {
+                flag = true;
             }
-        };
-        thread.start();
+            else {
+                flag = false;
+                return "main";
+            }
+
+            Thread thread = new Thread(){
+                public void run(){
+                    try {
+                        Thread.sleep(6000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        for (User user : application.getUserList()) {
+                            if (null == user.getAnswer()) {
+                                activeCell.setStatus(CellStatus.FAILED);
+                                return;
+                            }
+                            if (!user.getAnswer().equalsIgnoreCase(activeCell.getAnswer())) {
+                                activeCell.setStatus(CellStatus.FAILED);
+                                return;
+                            }
+                        }
+                        activeCell.setStatus(CellStatus.RESOLVED);
+                    }
+                    finally {
+                        for (User user : application.getUserList()) {
+                            user.setAnswer(null);
+                        }
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+        while (flag);
         return "main";
     }
 

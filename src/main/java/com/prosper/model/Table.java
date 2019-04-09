@@ -20,14 +20,21 @@ public class Table {
 
     private int rows = 3;
     private int columns = 3;
-    private List<Cell> cell = new ArrayList<>();
-    private List<Cell> usedCells = new ArrayList<>();
+    private List<Cell> cell;
+    private List<Cell> usedCells;
     private Cell activeCell;
 
     public Table() {
+        update();
+    }
+
+    public void update() {
+        activeCell = new Cell(-1,-1, CellStatus.NOT_STARTED);
+        cell = new ArrayList<>();
+        usedCells = new ArrayList<>();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++){
-               cell.add(new Cell(i,j));
+               cell.add(new Cell(i,j, CellStatus.NOT_STARTED));
             }
         }
     }
@@ -50,7 +57,9 @@ public class Table {
             usedCells.add(nextRandomCell);
         }
         activeCell = nextRandomCell;
-        activeCell.setStatus(CellStatus.IN_PROGRESS);
+        if(null != activeCell) {
+            activeCell.setStatus(CellStatus.IN_PROGRESS);
+        }
         return nextRandomCell;
     }
 }
