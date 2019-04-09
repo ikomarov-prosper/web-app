@@ -26,6 +26,20 @@ function createTable(colSize, rowSize, tableData) {
                                         td.innerHTML = question;
                                         tr.appendChild(td);
                                 }
+                else if(getCell(i,j, tableData).status == "RESOLVED") {
+                                    let td = document.createElement('td');
+                                    let image  = new Image();
+                                    image.src = '/images/resolved.png';
+                                    td.appendChild(image);
+                                    tr.appendChild(td);
+                            }
+                 else if(getCell(i,j, tableData).status == "FAILED") {
+                                         let td = document.createElement('td');
+                                         let image  = new Image();
+                                         image.src = '/images/failed.jpg';
+                                         td.appendChild(image);
+                                         tr.appendChild(td);
+                 }
 
             }
         }

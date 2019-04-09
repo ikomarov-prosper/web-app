@@ -48,6 +48,34 @@ public class MainController {
 
         Cell activeCell = application.getTable().getNextRandomCell();
         log.info("Next random cell : {}", activeCell);
+
+        Thread thread = new Thread(){
+            public void run(){
+
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                for(User user: application.getUserList()) {
+                    if(null == user.getAnswer()) {
+                        activeCell.setStatus(CellStatus.FAILED);
+                        return;
+                    }
+                    if (!user.getAnswer().equalsIgnoreCase(activeCell.getAnswer())) {
+                        activeCell.setStatus(CellStatus.FAILED);
+                        return;
+                    }
+                }
+                activeCell.setStatus(CellStatus.RESOLVED);
+
+                for(User user: application.getUserList()) {
+                    user.setAnswer(null);
+                }
+            }
+        };
+        thread.start();
         return "main";
     }
 
