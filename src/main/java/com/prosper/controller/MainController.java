@@ -1,6 +1,8 @@
 package com.prosper.controller;
 
 import com.prosper.model.Application;
+import com.prosper.model.Cell;
+import com.prosper.model.Cell.CellStatus;
 import com.prosper.model.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +42,12 @@ public class MainController {
         return "main";
     }
 
-    //for testing only
+
     @GetMapping(value = "/getNextCell")
     public String getNextRandomCell() {
-        log.info("Next random cell : {}", application.getTable().getNextRandomCell());
+
+        Cell activeCell = application.getTable().getNextRandomCell();
+        log.info("Next random cell : {}", activeCell);
         return "main";
     }
 

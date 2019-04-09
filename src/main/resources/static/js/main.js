@@ -90,11 +90,13 @@ eventSource.onmessage = function(e) {
     //console.log("New message : " + e.data);
     let curState;
     let data = JSON.parse(e.data);
-    if(prevState == undefined) {
+    if(prevState === undefined) {
         prevState  = data.table.activeCell;
+        createTable(model.columns, model.rows, data.table);
     }
 
-    if(data.table.activeCell != prevState) {
+    curState = data.table.activeCell;
+    if(curState != prevState) {
         console.log("Data has been changed : " + e.data);
         prevState = curState;
 
@@ -103,7 +105,7 @@ eventSource.onmessage = function(e) {
     }
 };
 
-//createTable(model.columns, model.rows);
+
 
 
 
