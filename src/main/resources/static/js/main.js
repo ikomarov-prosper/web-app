@@ -54,10 +54,10 @@ function removeTable() {
 
 // createTable(document.getElementById('answerID').textContent, document.getElementById('answerID').textContent);
 
-var eventSource = new EventSource("/start");
+var eventSource = new EventSource("/events/subscribe");
 var prevState = undefined;
 eventSource.onmessage = function(e) {
-    //console.log("New message : " + e.data);
+    console.log("New message : " + e.data);
     let curState;
     let data = JSON.parse(e.data);
     if(prevState == undefined) {

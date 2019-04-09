@@ -47,12 +47,6 @@ public class MainController {
         return "main";
     }
 
-    @GetMapping(value = "/start")
-    public String getCell() {
-        log.info("Next random cell : {}", application.getTable().getNextRandomCell());
-
-        return "main";
-    }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String answerSubmit(@ModelAttribute("User") User user, Model model, HttpSession session) {
