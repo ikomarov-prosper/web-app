@@ -1,6 +1,7 @@
 package com.prosper.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.prosper.model.Cell.CellStatus;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -49,6 +50,7 @@ public class Table {
             usedCells.add(nextRandomCell);
         }
         activeCell = nextRandomCell;
+        activeCell.setStatus(CellStatus.IN_PROGRESS);
         return nextRandomCell;
     }
 }

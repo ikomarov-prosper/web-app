@@ -1,14 +1,33 @@
 
-function createTable(colSize, rowSize) {
+function createTable(colSize, rowSize, tableData) {
     let table = document.createElement('table');
     for (let i = 0; i < rowSize; i++) {
         let tr = document.createElement('tr')
         for (let j = 0; j < colSize; j++) {
-            let td = document.createElement('td');
-            let image  = new Image();
-            image.src = '/images/QuestionsPicture.jpg';
-            td.appendChild(image);
-            tr.appendChild(td);
+            if(tableData == undefined) {
+                let td = document.createElement('td');
+                let image  = new Image();
+                image.src = '/images/QuestionsPicture.jpg';
+                td.appendChild(image);
+                tr.appendChild(td);
+            }
+            else{
+
+                if(getCell(i,j, tableData).status == "NOT_STARTED") {
+                        let td = document.createElement('td');
+                        let image  = new Image();
+                        image.src = '/images/QuestionsPicture.jpg';
+                        td.appendChild(image);
+                        tr.appendChild(td);
+                }
+                else if(getCell(i,j, tableData).status == "IN_PROGRESS") {
+                                        let td = document.createElement('td');
+                                        let question = getCell(i,j, tableData).question;
+                                        td.innerHTML = question;
+                                        tr.appendChild(td);
+                                }
+
+            }
         }
         table.appendChild(tr);
     }
@@ -20,6 +39,16 @@ function removeTable() {
     while(tableRoot.firstChild) {
         tableRoot.firstChild.remove();
     }
+}
+
+function getCell(row, col, tableData) {
+    let size = model.columns * model.rows;
+    for(let i = 0; i < size; i++) {
+     if(tableData.cell[i].col == col && tableData.cell[i].row == row) {
+      return tableData.cell[i];
+     }
+    }
+    return undefined;
 }
 //
 //function updateBackEnd() {
@@ -56,22 +85,25 @@ function removeTable() {
 
 var eventSource = new EventSource("/events/subscribe");
 var prevState = undefined;
+
 eventSource.onmessage = function(e) {
-    console.log("New message : " + e.data);
+    //console.log("New message : " + e.data);
     let curState;
     let data = JSON.parse(e.data);
     if(prevState == undefined) {
-        prevState  = data.trigger;
+        prevState  = data.table.activeCell;
     }
 
-    if(data.trigger != prevState) {
+    if(data.table.activeCell != prevState) {
         console.log("Data has been changed : " + e.data);
-        getDataFromBackEnd();
         prevState = curState;
+
+        removeTable();
+        createTable(model.columns, model.rows, data.table);
     }
 };
 
-createTable(model.columns, model.rows);
+//createTable(model.columns, model.rows);
 
 
 
