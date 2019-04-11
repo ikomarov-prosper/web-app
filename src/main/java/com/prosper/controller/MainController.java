@@ -47,7 +47,7 @@ public class MainController {
     }
 
     @GetMapping(value = "/getNextCell")
-    public String getNextRandomCell() {
+    public String getNextRandomCell(HttpSession session) {
 
         Boolean flag = null;
         do {
