@@ -2,6 +2,8 @@ package com.prosper;
 
 
 import lombok.extern.log4j.Log4j2;
+import org.apache.catalina.session.StandardSession;
+import org.apache.catalina.session.StandardSessionFacade;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -42,6 +44,7 @@ public class HttpSessionConfig {
             @Override
             public void sessionDestroyed(HttpSessionEvent hse) {
                 log.info("Session has been destroyed: {}", hse.getSession().getId());
+                //hse.getSession().invalidate();
                 sessions.remove(hse.getSession().getId());
             }
         };

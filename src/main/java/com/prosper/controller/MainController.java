@@ -5,7 +5,9 @@ import com.prosper.model.Cell;
 import com.prosper.model.Cell.CellStatus;
 import com.prosper.model.User;
 import lombok.extern.log4j.Log4j2;
+import org.apache.catalina.session.StandardSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -14,8 +16,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 @Log4j2
@@ -40,73 +47,94 @@ public class MainController {
     }
 
     @GetMapping(value = "/restart")
-    public String restart() {
+    public String restart(HttpSession session) {
         log.info("Restarting game....");
         application.getTable().update();
+        session.setAttribute(User.class.getSimpleName(), new User(this.user));
+        log.info("Restarting game. Users " + application.getUserList());
         return "main";
     }
 
-    @GetMapping(value = "/getNextCell")
-    public String getNextRandomCell(HttpSession session) {
+    @GetMapping(value = "/start")
+    public String start(HttpServletRequest request) {
+        log.info("Starting game....");
+        request.getSession().setAttribute(User.class.getSimpleName(), new User(this.user));
 
-        Boolean flag = null;
-        do {
-            Cell activeCell = application.getTable().getNextRandomCell();
-            log.info("Next random cell : {}", activeCell);
+        new Thread() {
+            public void run() {
 
-            if(activeCell!=null) {
-                flag = true;
-            }
-            else {
-                flag = false;
-                return "main";
-            }
+                while (getNextRandomCell() != null)
 
-            Thread thread = new Thread(){
-                public void run(){
-                    try {
-                        Thread.sleep(6000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                {
+//            if (request.getRequestedSessionId() != null
+//                    && !request.isRequestedSessionIdValid()) {
+//                log.info("Session is expired");
+//                return "login";
+//            }
 
-                    try {
-                        for (User user : application.getUserList()) {
-                            if (null == user.getAnswer()) {
-                                activeCell.setStatus(CellStatus.FAILED);
-                                return;
-                            }
-                            if (!user.getAnswer().equalsIgnoreCase(activeCell.getAnswer())) {
-                                activeCell.setStatus(CellStatus.FAILED);
-                                return;
-                            }
-                        }
-                        activeCell.setStatus(CellStatus.RESOLVED);
-                    }
-                    finally {
-                        for (User user : application.getUserList()) {
-                            user.setAnswer(null);
-                        }
-                    }
                 }
-            };
-
-            thread.start();
-
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
+        }.start();
 
-        }
-        while (flag);
         return "main";
     }
+
+public Cell getNextRandomCell() {
+
+
+    Cell activeCell = application.getTable().getNextRandomCell();
+    log.info("Next random cell : {}", activeCell);
+    if (activeCell == null) {
+        return null;
+    }
+    try {
+        Thread.sleep(6000);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+
+
+    application.getUserList().removeAll(Collections.singleton(null));//TODO: Why doe we have null users?
+    List<User> userList = new ArrayList<>(application.getUserList());
+    userList.removeAll(Collections.singleton(null));//TODO: Why doe we have null users?
+
+    try {
+
+        if (userList.isEmpty()) {
+            activeCell.setStatus(CellStatus.FAILED);
+            return activeCell;
+        }
+
+        for (User user : userList) {
+                if (null == user.getAnswer()) {
+                    activeCell.setStatus(CellStatus.FAILED);
+                    return activeCell;
+                }
+                if (!user.getAnswer().equalsIgnoreCase(activeCell.getAnswer())) {
+                    activeCell.setStatus(CellStatus.FAILED);
+                    return activeCell;
+                }
+        }
+        activeCell.setStatus(CellStatus.RESOLVED);
+
+
+    }
+    finally {
+            for (User user : application.getUserList()) {
+                if(user !=null) {
+                    user.setAnswer(null);
+                }
+            }
+    }
+
+
+    return activeCell;
+}
 
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String answerSubmit(@ModelAttribute("User") User user, Model model, HttpSession session) {
+        log.info("answerSubmit : {}", user.getAnswer());
         this.user.setAnswer(user.getAnswer());
         session.setAttribute(User.class.getSimpleName(), new User(this.user));
         log.info("answerSubmit : {}", user.getAnswer());
