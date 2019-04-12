@@ -8,6 +8,8 @@
     <title>Pyramid</title>
 
     <link rel="stylesheet" type="text/css" href="js/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
 <body>
 
@@ -27,5 +29,6 @@
     model.rows = "${Application.getTable().getRows()}"
 </script>
 <script src="js/main.js"></script>
+<script src="js/session.js"></script>
 </body>
 </html>
