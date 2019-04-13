@@ -1,7 +1,6 @@
 package com.prosper.controller;
 
 import com.prosper.model.Application;
-import com.prosper.model.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +16,11 @@ public class AbstarctController {
     @Autowired
     private Application application;
 
-    @Autowired
-    private User user;
+//    @Autowired
+//    private User user;
 
     @ModelAttribute
     public void addAttributes(Model model) {
-        model.addAttribute(User.class.getSimpleName(), user);
         model.addAttribute(Application.class.getSimpleName(), application);
     }
 }

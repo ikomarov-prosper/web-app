@@ -8,7 +8,7 @@
 
      function checkIdleTime(){
      var diff = new Date().getTime() - lastActiveTime;
-           if( diff > 10000){//10 sec of inactivity
+           if( diff > 60000){//10 sec of inactivity
             window.location.href ="/"
            }
 //           else{

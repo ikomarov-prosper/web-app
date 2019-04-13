@@ -3,9 +3,9 @@
 <!DOCTYPE HTML>
 <html>
 
-<form:form action="/login" modelAttribute="User" method="POST">
-<form:label path="name">Name</form:label>
-    <form:input path="name" />
+<form action="/login" method="POST">
+<label path="name">Name</label>
+    <input name="userName" />
     <input type="submit" value="Submit" />
-</form:form>
+</form>
 </html>

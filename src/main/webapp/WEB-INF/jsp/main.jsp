@@ -13,17 +13,16 @@
 </head>
 <body>
 
-<form:form action="/update" modelAttribute="User" method="POST">
-   <form:input type="text" path="answer"></form:input>
+<form action="/update" method="POST">
+   <input type="text" name="answer"></input>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
- </form:form>
+ </form>
 <div>
     <div id="table-container"> </div>
 </div>
 
 <script>
     var model={};
-    model.answer="${User.answer}";
     model.userList = "${Application.getUserList()}"
     model.columns = "${Application.getTable().getColumns()}"
     model.rows = "${Application.getTable().getRows()}"

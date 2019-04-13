@@ -3,6 +3,7 @@ package com.prosper.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prosper.model.Application;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import java.util.function.Function;
  * Created by Igor  08/04/2019
  */
 @Controller
+@Log4j2
 public class GameController {
 
     @Autowired
@@ -32,6 +34,7 @@ public class GameController {
                         String  jsonData = null;
                         try {
                             jsonData = new ObjectMapper().writeValueAsString(application);
+                            log.info("Users list sent to frontend: " + application.getUserList());
                         } catch (JsonProcessingException e) {
                             e.printStackTrace();
                         }

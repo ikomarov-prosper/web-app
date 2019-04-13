@@ -2,6 +2,7 @@ package com.prosper.model;
 
 import com.prosper.HttpSessionConfig;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @Component
 @Stateful
 @Data
+@Log4j2
 public class Application {
 
     @Autowired
@@ -24,8 +26,12 @@ public class Application {
     public List<User> getUserList() {
         List<User> users = new ArrayList<>();
         for (HttpSession session : HttpSessionConfig.getSessions().values()) {
-            users.add((User) session.getAttribute(User.class.getSimpleName()));
+            Object sessionAttribute = session.getAttribute(User.class.getSimpleName());
+            if(sessionAttribute != null) {
+                users.add((User) sessionAttribute);
+            }
         }
+        log.info("User list: " + users);
         return users;
     }
 }
