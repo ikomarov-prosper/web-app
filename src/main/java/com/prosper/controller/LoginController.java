@@ -1,7 +1,7 @@
 package com.prosper.controller;
 
-import com.prosper.model.Application;
-import com.prosper.model.User;
+import com.prosper.model.ApplicationModel;
+import com.prosper.dto.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,13 +20,13 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
 
     @Autowired
-    private Application application;
+    private ApplicationModel applicationModel;
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
     public String login(@RequestParam("userName") String userName, HttpServletRequest request) throws ServletException {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         log.info("Session from login : " + session.getId());
-        session.setMaxInactiveInterval(application.getConfiguration().getSessionMaxInactiveIntervalInMilliseconds());
+        session.setMaxInactiveInterval(applicationModel.getApplicationConfiguration().getSessionMaxInactiveIntervalInMilliseconds());
         User attrUser = (User) session.getAttribute(User.class.getSimpleName());
 
         if(attrUser != null) {

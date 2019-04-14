@@ -1,4 +1,4 @@
-package com.prosper.model;
+package com.prosper.dto;
 
 import lombok.Data;
 

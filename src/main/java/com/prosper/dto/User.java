@@ -1,4 +1,4 @@
-package com.prosper.model;
+package com.prosper.dto;
 
 import lombok.Data;
 
@@ -16,10 +16,5 @@ public class User {
     public User(String name, String answer) {
         this.name = name;
         this.answer = answer;
-    }
-
-    public User(User user) {
-        name = user.getName();
-        answer = user.getAnswer();
     }
 }

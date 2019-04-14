@@ -1,9 +1,9 @@
 package com.prosper.controller;
 
-import com.prosper.model.Application;
-import com.prosper.model.Cell;
-import com.prosper.model.Cell.CellStatus;
-import com.prosper.model.User;
+import com.prosper.dto.Cell;
+import com.prosper.dto.Cell.CellStatus;
+import com.prosper.dto.User;
+import com.prosper.model.ApplicationModel;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @Log4j2
@@ -24,7 +25,7 @@ import java.util.List;
 public class MainController {
 
     @Autowired
-    private Application application;
+    private ApplicationModel applicationModel;
 
     @GetMapping(value = {"/"})
     public String main() {
@@ -33,15 +34,15 @@ public class MainController {
 
     @GetMapping(value = "/get")
     public String getData() {
-        log.info("List of users : {}", application.getUserList());
+        log.info("List of users : {}", applicationModel.getUserList());
         return "main";
     }
 
     @GetMapping(value = "/restart")
     public String restart() {
         log.info("Restarting game....");
-        application.getTable().update();
-        log.info("Restarting game. Users " + application.getUserList());
+        applicationModel.getTable().update();
+        log.info("Restarting game. Users " + applicationModel.getUserList());
         return "main";
     }
 
@@ -55,19 +56,19 @@ public class MainController {
         return "main";
     }
 
-    public Cell getNextRandomCell() {
-        Cell activeCell = application.getTable().getNextRandomCell();
+    private Cell getNextRandomCell() {
+        Cell activeCell = applicationModel.getTable().getNextRandomCell();
         log.info("Next random cell : {}", activeCell);
         if (activeCell == null) {
             return null;
         }
         try {
-            Thread.sleep(6000);
+            Thread.sleep(applicationModel.getApplicationConfiguration().getAnswerTimeInMilliseconds());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        List<User> userList = new ArrayList<>(application.getUserList());
+        List<User> userList = new ArrayList<>(applicationModel.getUserList());
         try {
             if (userList.isEmpty()) {
                 activeCell.setStatus(CellStatus.FAILED);
@@ -85,7 +86,7 @@ public class MainController {
             }
             activeCell.setStatus(CellStatus.RESOLVED);
         } finally {
-            for (User user : application.getUserList()) {
+            for (User user : applicationModel.getUserList()) {
                 if (user != null) {
                     user.setAnswer(null);
                 }
@@ -96,12 +97,20 @@ public class MainController {
 
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String answerSubmit(@RequestParam("answer") String answer, HttpSession session) {
+    public String answerSubmit(@RequestParam("answer") String answer, HttpServletRequest request) {
         log.info("answerSubmit : {}", answer);
 
-        //TODO: check session is exist
-        User attribute = (User) session.getAttribute(User.class.getSimpleName());
-        attribute.setAnswer(answer);
+        HttpSession session = request.getSession(false);
+        if (Objects.nonNull(session)) {
+            Object sessionUserAttribute = session.getAttribute(User.class.getSimpleName());
+            if (Objects.nonNull(sessionUserAttribute)) {
+                User attribute = (User) sessionUserAttribute;
+                attribute.setAnswer(answer);
+            }
+            else {
+                log.warn("Session \"{}\" has no user attribute", session.getId());
+            }
+        }
         return "main";
     }
 }

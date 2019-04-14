@@ -2,7 +2,7 @@ package com.prosper.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prosper.model.Application;
+import com.prosper.model.ApplicationModel;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,7 +21,7 @@ import java.util.function.Function;
 public class GameController {
 
     @Autowired
-    private Application application;
+    private ApplicationModel applicationModel;
 
 
     @GetMapping(path = "/events/subscribe", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
@@ -33,8 +33,8 @@ public class GameController {
 
                         String  jsonData = null;
                         try {
-                            jsonData = new ObjectMapper().writeValueAsString(application);
-                            log.info("Users list sent to frontend: " + application.getUserList());
+                            jsonData = new ObjectMapper().writeValueAsString(applicationModel);
+                            log.info("Users list sent to frontend: " + applicationModel.getUserList());
                         } catch (JsonProcessingException e) {
                             e.printStackTrace();
                         }

@@ -23,10 +23,10 @@
 
 <script>
     var model={};
-    model.userList = "${Application.getUserList()}"
-    model.sessionInactiveIntervalInMilliseconds = "${Application.getConfiguration().getSessionMaxInactiveIntervalInMilliseconds()}"
-    model.columns = "${Application.getTable().getColumns()}"
-    model.rows = "${Application.getTable().getRows()}"
+    model.userList = "${ApplicationModel.getUserList()}"
+    model.sessionInactiveIntervalInMilliseconds = "${ApplicationModel.getApplicationConfiguration().getSessionMaxInactiveIntervalInMilliseconds()}"
+    model.columns = "${ApplicationModel.getTable().getColumns()}"
+    model.rows = "${ApplicationModel.getTable().getRows()}"
 </script>
 <script src="js/main.js"></script>
 <script src="js/session.js"></script>

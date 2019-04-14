@@ -1,4 +1,4 @@
-package com.prosper.model;
+package com.prosper;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-public class Configuration {
+public class ApplicationConfiguration {
 
     private Integer sessionMaxInactiveIntervalInMilliseconds = 60000;
+    private Integer answerTimeInMilliseconds = 10000;
 }

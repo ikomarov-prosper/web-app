@@ -1,7 +1,7 @@
-package com.prosper.model;
+package com.prosper.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.prosper.model.Cell.CellStatus;
+import com.prosper.dto.Cell.CellStatus;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +29,7 @@ public class Table {
     }
 
     public void update() {
-        activeCell = new Cell(-1,-1, CellStatus.NOT_STARTED);
+        activeCell = new Cell(-1,-1, CellStatus.NOT_STARTED);//TODO
         cell = new ArrayList<>();
         usedCells = new ArrayList<>();
         for (int i = 0; i < rows; i++) {

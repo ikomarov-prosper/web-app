@@ -1,6 +1,9 @@
 package com.prosper.model;
 
+import com.prosper.ApplicationConfiguration;
 import com.prosper.HttpSessionConfig;
+import com.prosper.dto.Table;
+import com.prosper.dto.User;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +21,10 @@ import java.util.List;
 @Stateful
 @Data
 @Log4j2
-public class Application {
+public class ApplicationModel {
 
     @Autowired
-    private Configuration configuration;
+    private ApplicationConfiguration applicationConfiguration;
 
     @Autowired
     private Table table;
@@ -34,7 +37,7 @@ public class Application {
                 users.add((User) sessionAttribute);
             }
         }
-        log.info("User list: " + users);
+        log.info("User list: {}", users);
         return users;
     }
 }
