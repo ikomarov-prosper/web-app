@@ -24,6 +24,7 @@
 <script>
     var model={};
     model.userList = "${Application.getUserList()}"
+    model.sessionInactiveIntervalInMilliseconds = "${Application.getConfiguration().getSessionMaxInactiveIntervalInMilliseconds()}"
     model.columns = "${Application.getTable().getColumns()}"
     model.rows = "${Application.getTable().getRows()}"
 </script>

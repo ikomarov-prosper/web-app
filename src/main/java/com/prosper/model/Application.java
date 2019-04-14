@@ -21,6 +21,9 @@ import java.util.List;
 public class Application {
 
     @Autowired
+    private Configuration configuration;
+
+    @Autowired
     private Table table;
 
     public List<User> getUserList() {

@@ -8,7 +8,7 @@
 
      function checkIdleTime(){
      var diff = new Date().getTime() - lastActiveTime;
-           if( diff > 60000){//10 sec of inactivity
+           if( diff > model.sessionInactiveIntervalInMilliseconds){
             window.location.href ="/"
            }
 //           else{
