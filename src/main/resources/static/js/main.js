@@ -1,6 +1,7 @@
 
 function createTable(colSize, rowSize, tableData) {
     let table = document.createElement('table');
+    table.setAttribute("background", "images/background.jpg");
     for (let i = 0; i < rowSize; i++) {
         let tr = document.createElement('tr')
         for (let j = 0; j < colSize; j++) {
@@ -22,15 +23,17 @@ function createTable(colSize, rowSize, tableData) {
                 }
                 else if(getCell(i,j, tableData).status == "IN_PROGRESS") {
                                         let td = document.createElement('td');
+                                        td.setAttribute("opacity", 0)
                                         let question = getCell(i,j, tableData).question;
                                         td.innerHTML = question;
                                         tr.appendChild(td);
                                 }
                 else if(getCell(i,j, tableData).status == "RESOLVED") {
                                     let td = document.createElement('td');
-                                    let image  = new Image();
-                                    image.src = '/images/resolved.png';
-                                    td.appendChild(image);
+                                    // let image  = new Image();
+                                    // image.src = '/images/resolved.png';
+                                    // td.appendChild(image);
+                                    td.setAttribute("opacity", 1)
                                     tr.appendChild(td);
                             }
                  else if(getCell(i,j, tableData).status == "FAILED") {
