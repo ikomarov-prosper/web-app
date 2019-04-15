@@ -18,6 +18,10 @@
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
  </form>
 <div>
+
+    <div><p>Active users:</p>
+    <ul id ="user-list"></ul>
+    </div>
     <div id="table-container"> </div>
 </div>
 
@@ -27,8 +31,11 @@
     model.sessionInactiveIntervalInMilliseconds = "${ApplicationModel.getApplicationConfiguration().getSessionMaxInactiveIntervalInMilliseconds()}"
     model.columns = "${ApplicationModel.getTable().getColumns()}"
     model.rows = "${ApplicationModel.getTable().getRows()}"
+    model.users  = JSON.parse("${ApplicationModel.getUsersInJson()}")
+
 </script>
 <script src="js/main.js"></script>
 <script src="js/session.js"></script>
+<script src="js/userList.js"></script>
 </body>
 </html>

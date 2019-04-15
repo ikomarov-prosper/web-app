@@ -1,5 +1,8 @@
 package com.prosper.model;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prosper.config.ApplicationConfiguration;
 import com.prosper.config.HttpSessionConfig;
 import com.prosper.dto.Table;
@@ -8,6 +11,7 @@ import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.ejb.Stateful;
 import javax.servlet.http.HttpSession;
@@ -28,6 +32,14 @@ public class ApplicationModel {
 
     @Autowired
     private Table table;
+
+    public String getUsersInJson() {
+        try {
+           return new ObjectMapper().writeValueAsString(getUserList()).replaceAll("[\"]","\\\\\"");
+        } catch (JsonProcessingException e) {
+            return null;
+        }
+    }
 
     public List<User> getUserList() {
         List<User> users = new ArrayList<>();
