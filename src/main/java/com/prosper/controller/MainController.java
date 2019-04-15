@@ -45,7 +45,7 @@ public class MainController {
     @GetMapping(value = "/restart")
     public String restart() {
         log.info("Restarting game....");
-        table.empty().fill(applicationModel.getApplicationConfiguration().getExpectedCellTypes());
+        table.empty().fill(applicationModel.getApplicationConfiguration().getExpectedCellTypes(), applicationModel.getApplicationConfiguration().getComplexity());
         log.info("Restarting game. Users " + applicationModel.getUserList());
         return "main";
     }

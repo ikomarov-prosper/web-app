@@ -18,6 +18,6 @@ public class GameConfig {
     public Table getTable() {
         return new Table(configuration.getRowSize(),configuration.getColSize())
                 .empty()
-                .fill(configuration.getExpectedCellTypes());
+                .fill(configuration.getExpectedCellTypes(), configuration.getComplexity());
     }
 }

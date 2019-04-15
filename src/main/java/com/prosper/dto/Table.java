@@ -3,6 +3,7 @@ package com.prosper.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.prosper.enums.CellStatus;
 import com.prosper.enums.CellType;
+import com.prosper.enums.Complexity;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -36,13 +37,20 @@ public class Table {
         return  this;
     }
 
-    public Table fill(List<CellType> cellTypes) {
+    public Table fill(List<CellType> cellTypes, Complexity complexity) {
         CellType randomCellType = cellTypes.get(new Random().nextInt(cellTypes.size()));
         activeCell = CellsFactory.get(randomCellType).setCol(-1).setRow(-1).setStatus(CellStatus.NOT_STARTED);//TODO
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 randomCellType = cellTypes.get(new Random().nextInt(cellTypes.size()));
-                cell.add(CellsFactory.get(randomCellType).setRow(i).setCol(j).setStatus(CellStatus.NOT_STARTED));
+                Cell cell = CellsFactory.get(randomCellType)
+                        .setRow(i)
+                        .setCol(j)
+                        .setStatus(CellStatus.NOT_STARTED)
+                        .setComplexity(complexity)
+                        .fill();
+
+                this.cell.add(cell);
             }
         }
         return this;
