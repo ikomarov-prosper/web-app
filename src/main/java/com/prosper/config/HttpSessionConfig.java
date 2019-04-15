@@ -1,4 +1,4 @@
-package com.prosper;
+package com.prosper.config;
 
 
 import lombok.extern.log4j.Log4j2;

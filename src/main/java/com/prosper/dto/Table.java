@@ -1,42 +1,51 @@
 package com.prosper.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.prosper.dto.Cell.CellStatus;
+import com.prosper.enums.CellStatus;
+import com.prosper.enums.CellType;
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
-import javax.ejb.Stateful;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Igor  08/04/2019
  */
-@Component
+
 @Data
-@Stateful
 public class Table {
 
-    private int rows = 3;
-    private int columns = 3;
+    private int rows;
+    private int columns;
     private List<Cell> cell;
     private List<Cell> usedCells;
     private Cell activeCell;
 
-    public Table() {
-        update();
+    public Table(int rows, int columns) {
+        this.rows = rows;
+        this.columns = columns;
+        this.cell = new ArrayList<>();
+        this.usedCells = new ArrayList<>();
     }
 
-    public void update() {
-        activeCell = new Cell(-1,-1, CellStatus.NOT_STARTED);//TODO
+    public Table empty() {
         cell = new ArrayList<>();
         usedCells = new ArrayList<>();
+        return  this;
+    }
+
+    public Table fill(List<CellType> cellTypes) {
+        CellType randomCellType = cellTypes.get(new Random().nextInt(cellTypes.size()));
+        activeCell = CellsFactory.get(randomCellType).setCol(-1).setRow(-1).setStatus(CellStatus.NOT_STARTED);//TODO
         for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++){
-               cell.add(new Cell(i,j, CellStatus.NOT_STARTED));
+            for (int j = 0; j < columns; j++) {
+                randomCellType = cellTypes.get(new Random().nextInt(cellTypes.size()));
+                cell.add(CellsFactory.get(randomCellType).setRow(i).setCol(j).setStatus(CellStatus.NOT_STARTED));
             }
         }
+        return this;
     }
 
     @JsonIgnore

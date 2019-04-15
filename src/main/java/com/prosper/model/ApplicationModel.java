@@ -1,7 +1,7 @@
 package com.prosper.model;
 
-import com.prosper.ApplicationConfiguration;
-import com.prosper.HttpSessionConfig;
+import com.prosper.config.ApplicationConfiguration;
+import com.prosper.config.HttpSessionConfig;
 import com.prosper.dto.Table;
 import com.prosper.dto.User;
 import lombok.Data;

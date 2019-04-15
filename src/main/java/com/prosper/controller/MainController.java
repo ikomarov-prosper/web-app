@@ -1,8 +1,9 @@
 package com.prosper.controller;
 
 import com.prosper.dto.Cell;
-import com.prosper.dto.Cell.CellStatus;
+import com.prosper.dto.Table;
 import com.prosper.dto.User;
+import com.prosper.enums.CellStatus;
 import com.prosper.model.ApplicationModel;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class MainController {
     @Autowired
     private ApplicationModel applicationModel;
 
+    @Autowired
+    private Table table;
+
     @GetMapping(value = {"/"})
     public String main() {
         return "login";
@@ -41,7 +45,7 @@ public class MainController {
     @GetMapping(value = "/restart")
     public String restart() {
         log.info("Restarting game....");
-        applicationModel.getTable().update();
+        table.empty().fill(applicationModel.getApplicationConfiguration().getExpectedCellTypes());
         log.info("Restarting game. Users " + applicationModel.getUserList());
         return "main";
     }
@@ -57,7 +61,7 @@ public class MainController {
     }
 
     private Cell getNextRandomCell() {
-        Cell activeCell = applicationModel.getTable().getNextRandomCell();
+        Cell activeCell = table.getNextRandomCell();
         log.info("Next random cell : {}", activeCell);
         if (activeCell == null) {
             return null;
