@@ -16,6 +16,8 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<reactor-core.version>3.2.8.RELEASE</reactor-core.version>
+		<jackson-core.version>2.9.8</jackson-core.version>
 	</properties>
 
 	<dependencies>
@@ -41,6 +43,79 @@
 			<artifactId>jackson-core</artifactId>
 			<version>2.9.8</version>
 		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson-core.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.projectreactor/reactor-core -->
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-core</artifactId>
+			<version>${reactor-core.version}</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.6</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+
+		<!--&lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.security/spring-security-core &ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.security</groupId>-->
+			<!--<artifactId>spring-security-core</artifactId>-->
+			<!--<version>5.1.5.RELEASE</version>-->
+		<!--</dependency>-->
+
+		<!--&lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.security/spring-security-web &ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.security</groupId>-->
+			<!--<artifactId>spring-security-web</artifactId>-->
+			<!--<version>5.1.5.RELEASE</version>-->
+		<!--</dependency>-->
+
+		<!--&lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.security/spring-security-config &ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.security</groupId>-->
+			<!--<artifactId>spring-security-config</artifactId>-->
+			<!--<version>5.1.5.RELEASE</version>-->
+		<!--</dependency>-->
+
+		<!-- https://mvnrepository.com/artifact/javax.ejb/ejb -->
+		<dependency>
+			<groupId>javax.ejb</groupId>
+			<artifactId>ejb</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.ejb/javax.ejb-api -->
+		<dependency>
+			<groupId>javax.ejb</groupId>
+			<artifactId>javax.ejb-api</artifactId>
+			<version>3.2.2</version>
+		</dependency>
+
+
+
+
 
 	</dependencies>
 
