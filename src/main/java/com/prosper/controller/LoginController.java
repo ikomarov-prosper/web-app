@@ -1,5 +1,6 @@
 package com.prosper.controller;
 
+import com.prosper.config.HttpSessionConfig;
 import com.prosper.model.ApplicationModel;
 import com.prosper.dto.User;
 import lombok.extern.log4j.Log4j2;

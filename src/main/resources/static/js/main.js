@@ -113,8 +113,8 @@ eventSource.onmessage = function(e) {
     }
 
     curState = data.table.activeCell;
-    if(curState != prevState) {
-        console.log("Data has been changed : " + e.data);
+    if(JSON.stringify(curState) != JSON.stringify(prevState)) {
+        console.log("Active cell has been changed : " + e.data);
         prevState = curState;
 
         removeTable();

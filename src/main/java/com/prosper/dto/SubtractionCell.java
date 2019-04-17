@@ -16,8 +16,6 @@ public class SubtractionCell implements Cell {
     private int row;
     private CellStatus status;
     private Complexity complexity;
-    private String question;
-    private String answer;
     private int a;
     private int b;
 
@@ -32,11 +30,11 @@ public class SubtractionCell implements Cell {
     }
 
     public  String getAnswer() {
-        return answer = String.valueOf(a - b);
+        return String.valueOf(a - b);
     }
 
     public String getQuestion() {
-        return question = "" + a + " - " +  b  + "  = ?";
+        return "" + a + " - " +  b  + "  = ?";
     }
 
     @Override
