@@ -23,7 +23,7 @@ function createTable(colSize, rowSize, tableData) {
                 }
                 else if(getCell(i,j, tableData).status == "IN_PROGRESS") {
                                         let td = document.createElement('td');
-                                        td.setAttribute("opacity", 0)
+                                        td.setAttribute("style", "background-color: rgba(255,255,255, 1)");
                                         let question = getCell(i,j, tableData).question;
                                         td.innerHTML = question;
                                         tr.appendChild(td);
@@ -33,7 +33,6 @@ function createTable(colSize, rowSize, tableData) {
                                     // let image  = new Image();
                                     // image.src = '/images/resolved.png';
                                     // td.appendChild(image);
-                                    td.setAttribute("opacity", 1)
                                     tr.appendChild(td);
                             }
                  else if(getCell(i,j, tableData).status == "FAILED") {

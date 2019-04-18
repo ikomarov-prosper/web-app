@@ -7,8 +7,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Pyramid</title>
 
-    <link rel="stylesheet" type="text/css" href="js/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/main.css">
 
 </head>
 <body>
@@ -37,5 +37,6 @@
 <script src="js/main.js"></script>
 <script src="js/session.js"></script>
 <script src="js/userList.js"></script>
+
 </body>
 </html>
