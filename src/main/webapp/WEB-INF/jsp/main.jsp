@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<form action="/update" method="POST">
+<form action="/update" method="POST" autocomplete="off">
    <input type="text" name="answer"></input>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
  </form>
@@ -32,7 +32,7 @@
     model.columns = "${ApplicationModel.getTable().getColumns()}"
     model.rows = "${ApplicationModel.getTable().getRows()}"
     model.users  = JSON.parse("${ApplicationModel.getUsersInJson()}")
-
+    model.activeCell = {};
 </script>
 <script src="js/main.js"></script>
 <script src="js/session.js"></script>

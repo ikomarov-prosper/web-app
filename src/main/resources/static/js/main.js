@@ -109,6 +109,7 @@ eventSource.onmessage = function(e) {
     let data = JSON.parse(e.data);
     model.userList = data.userList;
     model.users = data.userList;
+    model.activeCell = data.table.activeCell;
     if(prevState === undefined) {
         prevState  = data.table.activeCell;
         createTable(model.columns, model.rows, data.table);

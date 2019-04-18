@@ -27,6 +27,9 @@ public class LoginController {
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
     public String login(@RequestParam("userName") String userName, HttpServletRequest request) throws ServletException {
         HttpSession session = request.getSession(false);
+        if(!HttpSessionConfig.getSessions().containsKey(session.getId())) {
+            HttpSessionConfig.addSession(session);
+        }
         log.info("Session from login : " + session.getId());
         session.setMaxInactiveInterval((int)TimeUnit.MILLISECONDS.toSeconds(applicationModel.getApplicationConfiguration().getSessionMaxInactiveIntervalInMilliseconds()));
         User attrUser = (User) session.getAttribute(User.class.getSimpleName());

@@ -28,6 +28,10 @@ public class HttpSessionConfig {
         return sessions;
     }
 
+    public static void addSession(HttpSession session) {
+        sessions.put(session.getId(), session);
+    }
+
     public List<HttpSession> getActiveSessions() {
         return new ArrayList<>(sessions.values());
     }

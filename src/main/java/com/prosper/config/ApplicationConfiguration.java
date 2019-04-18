@@ -21,5 +21,5 @@ public class ApplicationConfiguration {
     private Integer rowSize = 3;
     private Integer colSize = 3;
     private List<CellType> expectedCellTypes = new ArrayList<>(Arrays.asList(CellType.ADDITION, CellType.SUBTRACTION));
-    private Complexity complexity = Complexity.NORMAL;
+    private Complexity complexity = Complexity.EASY;
 }
