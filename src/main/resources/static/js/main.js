@@ -104,9 +104,11 @@ var eventSource = new EventSource("/events/subscribe");
 var prevState = undefined;
 
 eventSource.onmessage = function(e) {
-    //console.log("New message : " + e.data);
+    console.log("New message : " + e.data);
     let curState;
     let data = JSON.parse(e.data);
+    model.userList = data.userList;
+    model.users = data.userList;
     if(prevState === undefined) {
         prevState  = data.table.activeCell;
         createTable(model.columns, model.rows, data.table);

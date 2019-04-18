@@ -1,5 +1,7 @@
 function updateUsers(listOfUsers) {
 
+
+
      let userListRoot = document.getElementById('user-list');
 
       while(userListRoot.firstChild) {
@@ -7,6 +9,7 @@ function updateUsers(listOfUsers) {
       }
 
       for(let i = 0; i < listOfUsers.length; i++) {
+           console.log("User[" + i + "]:" + listOfUsers[i].name);
            let li = document.createElement('li');
            li.innerHTML = listOfUsers[i].name;
            userListRoot.appendChild(li);
@@ -16,5 +19,5 @@ function updateUsers(listOfUsers) {
 updateUsers(model.users);
 setInterval(function() {
   updateUsers(model.users);
-}, 5000);
+}, 1000);
 

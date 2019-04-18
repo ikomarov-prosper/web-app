@@ -16,8 +16,8 @@ import java.util.List;
 @Component
 public class ApplicationConfiguration {
 
-    private Integer sessionMaxInactiveIntervalInMilliseconds = 60000;
-    private Integer answerTimeInMilliseconds = 10000;
+    private Long sessionMaxInactiveIntervalInMilliseconds = 30000l;
+    private Long answerTimeInMilliseconds = 10000l;
     private Integer rowSize = 3;
     private Integer colSize = 3;
     private List<CellType> expectedCellTypes = new ArrayList<>(Arrays.asList(CellType.ADDITION, CellType.SUBTRACTION));

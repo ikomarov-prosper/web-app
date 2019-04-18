@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 @Log4j2
@@ -27,7 +28,7 @@ public class LoginController {
     public String login(@RequestParam("userName") String userName, HttpServletRequest request) throws ServletException {
         HttpSession session = request.getSession(false);
         log.info("Session from login : " + session.getId());
-        session.setMaxInactiveInterval(applicationModel.getApplicationConfiguration().getSessionMaxInactiveIntervalInMilliseconds());
+        session.setMaxInactiveInterval((int)TimeUnit.MILLISECONDS.toSeconds(applicationModel.getApplicationConfiguration().getSessionMaxInactiveIntervalInMilliseconds()));
         User attrUser = (User) session.getAttribute(User.class.getSimpleName());
 
         if(attrUser != null) {
